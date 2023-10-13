@@ -52,4 +52,27 @@ describe("Cart initialisation:", () => {
     expect(screen.getAllByTestId("product")).toHaveLength(2);
   });
 
+  it("should render the total price of the cart", () => {
+
+    const store = mockStore({
+      cart: {
+        cart: cartItems,
+      },
+    });
+
+    render(
+      <Provider store={store}>
+         <MemoryRouter>
+          <Cart />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const expectedPrice =
+      cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+    expect(screen.getByText(/Total Price/i)).toBeInTheDocument();
+    expect(screen.getByText(`${expectedPrice} €`)).toBeInTheDocument();
+  });
+
 })
