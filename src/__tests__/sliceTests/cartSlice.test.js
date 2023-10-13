@@ -9,7 +9,7 @@ describe("cartSlice tests", () => {
   })
 
   it("should handle changeQuantity", () => {
-    const product = { id: 1, name: "Product 1", price: 10, quantity: 1 };
+    const product = { id: 1, name: "Product 1", price: 5, quantity: 1 };
     const state = {
       cart: [product],
     };
@@ -19,4 +19,29 @@ describe("cartSlice tests", () => {
     };
     expect(cartReducer(state, action)).toEqual(expectedState);
   });
+
+  it("should handle adding product", () => {
+    const product = { id: 1, name: "Product 1", price: 5, quantity: 1 };
+    const state = {
+      cart: [],
+    };
+    const action = changeQuantity(product);
+    const expectedState = {
+      cart: [product],
+    };
+    expect(cartReducer(state, action)).toEqual(expectedState);
+  });
+
+  it("should handle removing product", () => {
+    const product = { id: 1, name: "Product 1", price: 5, quantity: 0 };
+    const state = {
+      cart: [product],
+    };
+    const action = changeQuantity({ ...product, quantity: -1 });
+    const expectedState = {
+      cart: [],
+    };
+    expect(cartReducer(state, action)).toEqual(expectedState);
+  });
+
 })
