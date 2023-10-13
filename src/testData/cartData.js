@@ -25,3 +25,5 @@ const cartItems =
         }
     },
 ]
+
+export { cartItems }
